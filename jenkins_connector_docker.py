@@ -26,7 +26,7 @@ class JenkinsAuthenticationError(Exception):
     pass
 
 class JenkinsConnector:
-    def __init__(self, jenkins_url=None, username=None, api_token=None, verify_ssl=None, timeout=30):
+    def __init__(self, jenkins_url=None, username=None, api_token=None, verify_ssl=None, timeout=60):
         """
         Initialize Jenkins connection with authentication handling.
 
