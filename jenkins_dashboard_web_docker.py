@@ -3,7 +3,7 @@
 import os
 import threading
 from flask import Flask, render_template, jsonify, request, send_from_directory
-from jenkins_dashboard_core import JenkinsDashboardData
+from jenkins_dashboard_core_docker import JenkinsDashboardData
 import logging
 
 # Configure logging
