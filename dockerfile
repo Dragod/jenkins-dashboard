@@ -7,7 +7,7 @@ COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY jenkins_connector_docker_docker.py .
+COPY jenkins_connector_docker.py .
 COPY jenkins_dashboard_core_docker.py .
 COPY jenkins_dashboard_web_docker.py .
 
