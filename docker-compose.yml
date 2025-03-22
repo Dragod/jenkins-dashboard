@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  jenkins-dashboard:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - JENKINS_URL=${JENKINS_URL:-https://jenkins.example.com}
+      - JENKINS_USERNAME=${JENKINS_USERNAME:-your_username}
+      - JENKINS_API_TOKEN=${JENKINS_API_TOKEN:-your_api_token}
+      - JENKINS_VERIFY_SSL=${JENKINS_VERIFY_SSL:-False}
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs

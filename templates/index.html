@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Jenkins Build Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      body {
+        padding-top: 20px;
+        background-color: #f5f5f5;
+      }
+      .card {
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .progress {
+        height: 20px;
+      }
+      .table th {
+        background-color: #f8f9fa;
+      }
+      .refresh-timestamp {
+        font-size: 0.8rem;
+        color: #6c757d;
+      }
+      #error-alert {
+        display: none;
+      }
+      .build-card {
+        margin-bottom: 15px;
+        border-left: 4px solid #007bff;
+      }
+      .build-progress {
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+      .build-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .badge-running {
+        background-color: #28a745;
+      }
+      .build-link {
+        color: inherit;
+        text-decoration: none;
+      }
+      .build-link:hover {
+        text-decoration: underline;
+      }
+      .overdue {
+        color: #dc3545;
+        font-weight: bold;
+      }
+      .auto-refresh-toggle {
+        margin-left: 10px;
+      }
+      /* Additional styles for build display */
+      .card-text {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 10px;
+      }
+      /* Additional styles for smaller text */
+      .build-info .card-text small {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col">
+          <h1 class="display-4">Jenkins Build Dashboard</h1>
+          <p class="lead">Monitor builds in progress and build queue</p>
+          <div class="d-flex justify-content-between align-items-end">
+            <div>
+              <span class="refresh-timestamp"
+                >Last updated: <span id="timestamp">...</span></span
+              >
+              <div
+                class="form-check form-switch auto-refresh-toggle d-inline-block"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="autoRefreshToggle"
+                  checked
+                />
+                <label class="form-check-label" for="autoRefreshToggle"
+                  >Auto-refresh (30s)</label
+                >
+              </div>
+            </div>
+            <button id="refresh-btn" class="btn btn-primary btn-sm">
+              <i class="bi bi-arrow-clockwise"></i> Refresh Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="error-alert" class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        Error connecting to Jenkins: <span id="error-message"></span>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div
+              class="card-header d-flex justify-content-between align-items-center bg-primary text-white"
+            >
+              <h5 class="mb-0">Builds in Progress</h5>
+              <span class="badge bg-light text-primary" id="running-count"
+                >0</span
+              >
+            </div>
+            <div class="card-body">
+              <div id="no-running" class="alert alert-secondary">
+                <i class="bi bi-info-circle"></i> No builds currently running
+              </div>
+              <div id="running-builds"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="card">
+            <div
+              class="card-header d-flex justify-content-between align-items-center bg-warning text-dark"
+            >
+              <h5 class="mb-0">Build Queue</h5>
+              <span class="badge bg-light text-warning" id="queue-count"
+                >0</span
+              >
+            </div>
+            <div class="card-body">
+              <div id="no-queued" class="alert alert-secondary">
+                <i class="bi bi-info-circle"></i> No builds in queue
+              </div>
+              <table id="queue-table" class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Job Name</th>
+                    <th>Waiting Time</th>
+                    <th>Reason</th>
+                  </tr>
+                </thead>
+                <tbody id="queued-builds"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="mt-5 text-center text-muted">
+        <p>
+          <small>Jenkins Build Dashboard &copy; 2025</small>
+        </p>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/dashboard.js"></script>
+  </body>
+</html>
