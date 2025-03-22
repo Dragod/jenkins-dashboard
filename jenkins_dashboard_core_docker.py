@@ -10,7 +10,7 @@ from datetime import datetime
 from flask import Flask, render_template, jsonify
 
 # Import the JenkinsConnector from your module
-from jenkins_connector import JenkinsConnector, JenkinsAuthenticationError
+from jenkins_connector_docker import JenkinsConnector, JenkinsAuthenticationError
 
 # Configure logging - ensure logs go to a location accessible in Docker
 log_directory = 'logs'
