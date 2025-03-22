@@ -28,4 +28,4 @@ ENV JENKINS_API_TOKEN=your_api_token
 ENV JENKINS_VERIFY_SSL=False
 
 # Command to run the application
-CMD ["python", "jenkins_dashboard_web.py"]
+CMD ["python", "jenkins_dashboard_web_docker.py"]
